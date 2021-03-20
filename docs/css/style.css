@@ -1,0 +1,47 @@
+body {
+    background-color : black;
+}
+
+.character-banner {
+    text-align: center;
+    color: white;
+    padding-bottom: 20px;
+}
+
+.character-banner > img {
+    height: 260px
+}
+
+.selected-cell {
+    background-color: red;
+}
+
+.char-row {
+}
+
+.char-cell {
+    padding : 10px;
+    height : 70px;
+    width : 70px;
+    background-position: center;
+    background-size: cover;
+    text-align: center;
+    vertical-align: bottom;
+}
+
+.char-cell > span {
+    border-radius: 5px;
+    background-color: black;
+    font-size: 15px;
+    color: white;
+}
+
+.selected-cell > span {
+    background-color : white;
+    font-size: 18px;
+    color : black;
+}
+
+table {
+    margin: 0 auto
+}
