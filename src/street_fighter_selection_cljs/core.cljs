@@ -1,39 +1,33 @@
 (ns ^:figwheel-hooks street-fighter-selection-cljs.core
-  (:require
-   [goog.dom :as gdom]
-   [reagent.core :as reagent :refer [atom]]
-   [reagent.dom :as rdom]))
+  (:require [goog.dom :as gdom]
+            [reagent.core :as r]
+            [reagent.dom :as rdom]
+            [street-fighter-selection-cljs.sound :as sft-sound]
+            [street-fighter-selection-cljs.events :as sft-ev]
+            [street-fighter-selection-cljs.data :refer [assets-map]]
+            [street-fighter-selection-cljs.view :refer [grid-view character-banner]]))
 
-(println "This text is printed from src/street_fighter_selection_cljs/core.cljs. Go ahead and edit it and see reloading in action.")
+(defn get-app-element [] (gdom/getElement "app"))
 
-(defn multiply [a b] (* a b))
+(def g-fighters [[       ""    "Ryu"  "E.Honda"  "Blanka"   "Guile" ""       ]
+                 [ "Balrog"    "Ken"  "Chun Li" "Zangief" "Dhalsim" "Sagat"  ]
+                 [   "Vega" "T.Hawk" "Fei Long"  "Deejay"   "Cammy" "M.Bison"]])
 
-;; define your app data so that it doesn't get over-written on reload
-(defonce app-state (atom {:text "Hello world!"}))
+(defn app []
+  [:div 
+   (let [fighter (:current-character @sft-ev/app-state)]
+     [character-banner fighter (get-in assets-map [fighter :img])])
+   [grid-view sft-ev/EVENTCHANNEL g-fighters [0 1]]])
 
-(defn get-app-element []
-  (gdom/getElement "app"))
 
-(defn hello-world []
-  [:div
-   [:h1 (:text @app-state)]
-   [:h3 "Edit this in src/street_fighter_selection_cljs/core.cljs and watch it change!"]])
-
-(defn mount [el]
-  (rdom/render [hello-world] el))
+(defn mount [el] (rdom/render [app] el))
 
 (defn mount-app-element []
   (when-let [el (get-app-element)]
     (mount el)))
 
-;; conditionally start your application based on the presence of an "app" element
-;; this is particularly helpful for testing this ns without launching the app
 (mount-app-element)
 
-;; specify reload hook with ^;after-load metadata
 (defn ^:after-load on-reload []
-  (mount-app-element)
-  ;; optionally touch your app-state to force rerendering depending on
-  ;; your application
-  ;; (swap! app-state update-in [:__figwheel_counter] inc)
-)
+  (sft-sound/close-all-audio!)
+  (mount-app-element))
