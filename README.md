@@ -10,8 +10,7 @@ Check the site on [here](https://sabin-gurung.github.io/sft-character-select/)
 
 Personal project to learn clojurescript, reagent and core async.
 
-![screen shot]
-(./images/screenshot.png)
+![screen shot](images/screenshot.png)
 
 ## License
 
