@@ -6,19 +6,20 @@
             [street-fighter-selection-cljs.data :refer [assets-map]]
             [street-fighter-selection-cljs.sound :refer [play play-bg toggle-pause]]))
 
-(defn thumbnail-url [fighter-name]
-  (str "url('" (get-in assets-map [fighter-name :img]) "')"))
-
+(. js/document addEventListener "keydown" #(. % preventDefault))
 (defn key-up-chan []
   (let [c (chan)]
     (. js/document addEventListener "keyup" #(put! c %))
     c))
 
+(defn thumbnail-url [fighter-name]
+  (str "url('" (get-in assets-map [fighter-name :img]) "')"))
+
 (defn character-banner [character image]
   [:div.character-banner 
    [:h2 "Street Fighter "]
    [:h3 character]
-   [:p "press P to play music"]
+   [:p "Press [P] to play music"]
    [:img {:src image}]])
 
 (defn cell-view [fighter selected?]
@@ -63,16 +64,20 @@
   [:div {:style {:color "white"
                  :text-align "center"}}
    [:h4 "About"]
-    [:p
-     "This is a simple demo application inspired from the kata from code wars : "
-     [:a {:href "https://www.codewars.com/kata/58583922c1d5b415b00000ff" :target "_blank"}
-      "Street Fighter Selection 2" ]
-     [:br]
-     "Image assets was downloaded from : " 
-     [:a {:href "https://streetfighter.fandom.com/wiki/Street_Fighter_Wiki" :target "_blank"}
-      "Street fighter wiki"]
-     [:br]
-     [:a {:href "https://www.youtube.com/watch?v=JzS96auqau0&t=1s&ab_channel=evo2kvids" :target "_blank"}
-      "Click here for awesome video"]
-     ]])
-
+   [:p
+    "This is a simple demo application inspired from the kata from code wars : "
+    [:a {:href "https://www.codewars.com/kata/58583922c1d5b415b00000ff" :target "_blank"}
+     "Street Fighter Selection 2" ]
+    [:br]
+    "Image assets was downloaded from : " 
+    [:a {:href "https://streetfighter.fandom.com/wiki/Street_Fighter_Wiki" :target "_blank"}
+     "Street fighter wiki"]
+    [:br] [:br]
+     "Here Awesome Video"]
+    [:iframe
+     {:width 560
+      :height 315
+      :src "https://www.youtube.com/embed/JzS96auqau0"
+      :title "Awesome comeback"
+      :frameBorder 0
+      :allow "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"}]])
