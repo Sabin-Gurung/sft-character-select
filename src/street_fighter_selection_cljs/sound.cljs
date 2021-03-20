@@ -24,6 +24,7 @@
 
 (defn toggle-pause [resource-id]
   (let [audio-tag (get-audio-tag! resource-id)]
+    (set! (.. audio-tag -volume) 0.3)
     (if (. audio-tag -paused)
       (. audio-tag play)
       (. audio-tag pause))))
