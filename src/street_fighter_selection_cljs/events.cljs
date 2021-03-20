@@ -4,18 +4,14 @@
             [reagent.core :as r]
             ))
 
-(def initial-state {:current-character "Ryu"
-                    })
-(defonce app-state (r/atom initial-state))
-(reset! app-state initial-state)
+(defonce app-state (r/atom {:current-character "Ryu"}))
 
 (def EVENTCHANNEL (chan))
 
 (def event-handlers
   {:hover-character (fn [c-name] 
                       (do (swap! app-state assoc  :current-character c-name)
-                          (println "you just hovered" c-name)))
-   })
+                          (println "you just hovered" c-name)))})
 
 (go
   (while true

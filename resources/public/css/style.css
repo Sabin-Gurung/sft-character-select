@@ -9,7 +9,7 @@ body {
 }
 
 .character-banner > img {
-    height: 330px
+    height: 260px
 }
 
 .selected-cell {
@@ -21,8 +21,8 @@ body {
 
 .char-cell {
     padding : 10px;
-    height : 75px;
-    width : 75px;
+    height : 70px;
+    width : 70px;
     background-position: center;
     background-size: cover;
     text-align: center;
@@ -32,13 +32,13 @@ body {
 .char-cell > span {
     border-radius: 5px;
     background-color: black;
-    font-size: 16px;
+    font-size: 15px;
     color: white;
 }
 
 .selected-cell > span {
     background-color : white;
-    font-size: 20px;
+    font-size: 18px;
     color : black;
 }
 

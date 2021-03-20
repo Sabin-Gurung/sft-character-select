@@ -22,6 +22,12 @@
     (stop-audio audio-tag)
     (. audio-tag play)))
 
+(defn toggle-pause [resource-id]
+  (let [audio-tag (get-audio-tag! resource-id)]
+    (if (. audio-tag -paused)
+      (. audio-tag play)
+      (. audio-tag pause))))
+
 (defn play-bg [resource-id]
   (let [audio-tag (get-audio-tag! resource-id)]
     (set! (.. audio-tag -loop) true)

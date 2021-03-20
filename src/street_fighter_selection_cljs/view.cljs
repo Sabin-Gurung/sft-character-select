@@ -4,7 +4,7 @@
             [cljs.core.async :refer-macros [go go-loop]]
             [street-fighter-selection-cljs.algorithm :refer [get-in-mat is-empty? advance ncols nrows]]
             [street-fighter-selection-cljs.data :refer [assets-map]]
-            [street-fighter-selection-cljs.sound :refer [play play-bg]]))
+            [street-fighter-selection-cljs.sound :refer [play play-bg toggle-pause]]))
 
 (defn thumbnail-url [fighter-name]
   (str "url('" (get-in assets-map [fighter-name :img]) "')"))
@@ -16,8 +16,9 @@
 
 (defn character-banner [character image]
   [:div.character-banner 
-   [:h1 "Street Fighter "]
-   [:h2 character]
+   [:h2 "Street Fighter "]
+   [:h3 character]
+   [:p "press P to play music"]
    [:img {:src image}]])
 
 (defn cell-view [fighter selected?]
@@ -36,8 +37,8 @@
         k-chan (key-up-chan)
         _ (go-loop [ev (<! k-chan)] 
                    (when ev
-                     ; (play-bg "sounds/guile-theme.mp3")
                      (case (.-which ev)
+                       80 (do (toggle-pause "sounds/guile-theme.mp3"))
                        37 (next-char :left)
                        38 (next-char :up)
                        39 (next-char :right)
@@ -57,4 +58,21 @@
                                                 ^{:key [x y]}
                                                 [cell-view fighter (= [x y] @cur-pos)])))]))]]])
        :component-will-unmount (fn [cmp] (close! k-chan))})))
+
+(defn about []
+  [:div {:style {:color "white"
+                 :text-align "center"}}
+   [:h4 "About"]
+    [:p
+     "This is a simple demo application inspired from the kata from code wars : "
+     [:a {:href "https://www.codewars.com/kata/58583922c1d5b415b00000ff" :target "_blank"}
+      "Street Fighter Selection 2" ]
+     [:br]
+     "Image assets was downloaded from : " 
+     [:a {:href "https://streetfighter.fandom.com/wiki/Street_Fighter_Wiki" :target "_blank"}
+      "Street fighter wiki"]
+     [:br]
+     [:a {:href "https://www.youtube.com/watch?v=JzS96auqau0&t=1s&ab_channel=evo2kvids" :target "_blank"}
+      "Click here for awesome video"]
+     ]])
 
