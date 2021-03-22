@@ -72,6 +72,9 @@
     "Image assets was downloaded from : " 
     [:a {:href "https://streetfighter.fandom.com/wiki/Street_Fighter_Wiki" :target "_blank"}
      "Street fighter wiki"]
+    [:br]
+    [:a {:href "https://github.com/Sabin-Gurung/sft-character-select" :target "_blank"}
+     "[ Source Code ]"]
     [:br] [:br]
      "Here Awesome Video"]
     [:iframe
