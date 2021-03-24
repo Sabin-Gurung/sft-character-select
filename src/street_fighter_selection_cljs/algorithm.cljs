@@ -4,7 +4,6 @@
 (defn ncols [mat] (count (first mat)))
 (defn get-in-mat [arr [x y]] ((arr x) y))
 (defn is-empty? [arr pos] (= "" (get-in-mat arr pos)))
-(defn is-hor-move? [move] (some? (#{:left :right} move)))
 
 (defn advance-hor [fighters [x y] move-y]
   (let [adv-fn #(mod (+ %1 move-y) (ncols fighters))]
