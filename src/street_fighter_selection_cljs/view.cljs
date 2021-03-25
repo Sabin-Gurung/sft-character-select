@@ -83,4 +83,5 @@
       :src "https://www.youtube.com/embed/JzS96auqau0"
       :title "Awesome comeback"
       :frameBorder 0
+      :allowfullscreen ""
       :allow "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"}]])
