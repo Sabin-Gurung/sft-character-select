@@ -1,5 +1,6 @@
 import urllib.request
 import re
+import threading
 
 def read_url(url):
     with urllib.request.urlopen(url) as response:
@@ -9,6 +10,8 @@ def read_url(url):
 def find_image_tags(text):
     matches = re.findall(r'<img src="[^"]*scale-to-width-down/310[^"]*"', text)
     return matches[0].split('"')[1].strip()
+
+baseurl = "https://streetfighter.fandom.com/wiki/"
 
 fighters = [
         "Ryu",  
@@ -29,21 +32,26 @@ fighters = [
         "M._Bison"
         ]
 
-print(fighters)
-
-baseurl = "https://streetfighter.fandom.com/wiki/"
-
-for f in fighters:
-    url = baseurl + f
+def process (fighter):
+    image_url = baseurl + fighter
     try:
-        imgtag = find_image_tags(read_url(url))
-        print("{}>{}".format(f, imgtag))
-
+        imgtag = find_image_tags(read_url(image_url))
+        print("{}>{}".format(fighter, imgtag))
         # uncomment to donwload images
         # urllib.request.urlretrieve(imgtag, f.replace(".", "") + ".png")
         # print("Downloaded {} to {}.png".format(imgtag, f))
     except:
         print("failed {}".format(f))
+
+threads = []
+for f in fighters:
+    th = threading.Thread(target=process, args=(f,))
+    threads.append(th)
+    th.start()
+
+
+for th in threads:
+    th.join()
 
 # Ryu>https://static.wikia.nocookie.net/streetfighter/images/4/46/Ryurender.png/revision/latest/scale-to-width-down/310?cb=20170728171704
 # E._Honda>https://static.wikia.nocookie.net/streetfighter/images/7/73/46NHkHz.png/revision/latest/scale-to-width-down/310?cb=20190909070353
