@@ -20,7 +20,6 @@
    [grid-view sft-ev/EVENTCHANNEL g-fighters [0 1]]
    [about]])
 
-
 (defn mount [el] (rdom/render [app] el))
 
 (defn mount-app-element []
